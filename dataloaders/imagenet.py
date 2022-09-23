@@ -19,8 +19,8 @@ def get(data_path,seed=0,pc_valid=0.10):
 
         # Imagenet
         dat={}
-        dat['train']=datasets.ImageNet(data_path,split = train,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-        dat['test']=datasets.ImageNet(data_path,split = test,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+        dat['train']=datasets.ImageNet(data_path,split = 'train',transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+        dat['test']=datasets.ImageNet(data_path,split = 'test',transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         for n in range(1):
             data[n]={}
             data[n]['name']='ImageNet'
