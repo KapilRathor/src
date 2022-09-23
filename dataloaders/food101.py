@@ -33,7 +33,7 @@ def get(data_path,seed=0,pc_valid=0.10):
                 n=target.cpu().numpy()[0]
                 nn=n//2
                 data[nn][s]['x'].append(image)
-                data[nn][s]['y'].append(n%2)
+                data[nn][s]['y'].append(n%10)
 
         # "Unify" and save
         for t in data.keys():
