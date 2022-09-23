@@ -8,7 +8,7 @@ from sklearn.utils import shuffle
 def get(data_path,seed=0,pc_valid=0.10):
     data={}
     taskcla=[]
-    size=[3,224,224]
+    size=[3,384,384]
 
     path = os.path.join(data_path, 'binary_cifar')
     if not os.path.isdir(path):
@@ -17,13 +17,13 @@ def get(data_path,seed=0,pc_valid=0.10):
         mean=[x/255 for x in [125.3,123.0,113.9]]
         std=[x/255 for x in [63.0,62.1,66.7]]
 
-        # Imagenet
+        # Food101
         dat={}
-        dat['train']=datasets.ImageNet(data_path,split = train,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-        dat['test']=datasets.ImageNet(data_path,split = test,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+        dat['train']=datasets.Food101(data_path,split = train,download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+        dat['test']=datasets.Food101(data_path,split = test,download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         for n in range(1):
             data[n]={}
-            data[n]['name']='ImageNet'
+            data[n]['name']='Food101'
             data[n]['ncla']=10
             data[n]['train']={'x': [],'y': []}
             data[n]['test']={'x': [],'y': []}
@@ -54,7 +54,7 @@ def get(data_path,seed=0,pc_valid=0.10):
             data[i][s]['x']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'x.bin'))
             data[i][s]['y']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'y.bin'))
         data[i]['ncla']=len(np.unique(data[i]['train']['y'].numpy()))
-        data[i]['name']='ImageNet-'+str(ids[i])
+        data[i]['name']='Food101-'+str(ids[i])
 
     # Validation
     for t in data.keys():
