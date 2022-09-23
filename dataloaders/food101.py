@@ -10,7 +10,7 @@ def get(data_path,seed=0,pc_valid=0.10):
     taskcla=[]
     size=[3,384,384]
 
-    path = os.path.join(data_path, 'binary_cifar')
+    path = os.path.join(data_path, 'binary_Food101')
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -21,7 +21,7 @@ def get(data_path,seed=0,pc_valid=0.10):
         dat={}
         dat['train']=datasets.Food101(data_path,split = 'train',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         dat['test']=datasets.Food101(data_path,split = 'test',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-        for n in range(1):
+        for n in range(10):
             data[n]={}
             data[n]['name']='Food101'
             data[n]['ncla']=10
@@ -31,7 +31,7 @@ def get(data_path,seed=0,pc_valid=0.10):
             loader=torch.utils.data.DataLoader(dat[s],batch_size=1,shuffle=False)
             for image,target in loader:
                 n=target.cpu().numpy()[0]
-                nn=n//2
+                nn=(n//10)+5
                 data[nn][s]['x'].append(image)
                 data[nn][s]['y'].append(n%10)
 
