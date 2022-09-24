@@ -19,7 +19,7 @@ def get(data_path,seed=0,pc_valid=0.10):
 
         # Food101
         dat={}
-	n=0
+        n=0
         dat['train']=datasets.Food101(data_path,split = 'train',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         dat['test']=datasets.Food101(data_path,split = 'test',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         data[n]['name']='Food101'
