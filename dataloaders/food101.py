@@ -10,7 +10,7 @@ def get(data_path,seed=0,pc_valid=0.10):
     taskcla=[]
     size=[3,384,384]
 
-    path = os.path.join(data_path, 'binary_Food101')
+    path = os.path.join(data_path, 'binary_food101')
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -20,13 +20,15 @@ def get(data_path,seed=0,pc_valid=0.10):
         # Food101
         dat={}
         n=0
+        data[n]={}
+        data[n]['name']='food101'
+        data[n]['ncla']=101
+        data[n]['train']={'x': [],'y': []}
+        data[n]['test']={'x': [],'y': []}
         dat['train']=datasets.Food101(data_path,split = 'train',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         dat['test']=datasets.Food101(data_path,split = 'test',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-        data[n]['name']='Food101'
-        data[n]['ncla']=10        
         for s in ['train','test']:
             loader=torch.utils.data.DataLoader(dat[s],batch_size=1,shuffle=False)
-	    data[n][s]={'x': [],'y': []}
             for image,target in loader:
                 data[n][s]['x'].append(image)
                 data[n][s]['y'].append(target.numpy()[0])
@@ -41,13 +43,15 @@ def get(data_path,seed=0,pc_valid=0.10):
 
     # Load binary files
     data={}
+    ids=0
     i=0
+    data[i] = dict.fromkeys(['name','ncla','train','test'])
+    data[i]['name']='food101'
+    data[i]['ncla']=101
     for s in ['train','test']:
         data[i][s]={'x':[],'y':[]}
-        data[i][s]['x']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'x.bin'))
-        data[i][s]['y']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'y.bin'))
-    data[i]['ncla']=len(np.unique(data[i]['train']['y'].numpy()))
-    data[i]['name']='Food101-'+str(ids[i])
+        data[i][s]['x']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids)+s+'x.bin'))
+        data[i][s]['y']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids)+s+'y.bin'))
 
     # Validation
     for t in data.keys():
