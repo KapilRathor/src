@@ -19,21 +19,17 @@ def get(data_path,seed=0,pc_valid=0.10):
 
         # Food101
         dat={}
+	n=0
         dat['train']=datasets.Food101(data_path,split = 'train',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
         dat['test']=datasets.Food101(data_path,split = 'test',download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-        for n in range(10):
-            data[n]={}
-            data[n]['name']='Food101'
-            data[n]['ncla']=10
-            data[n]['train']={'x': [],'y': []}
-            data[n]['test']={'x': [],'y': []}
+        data[n]['name']='Food101'
+        data[n]['ncla']=10        
         for s in ['train','test']:
             loader=torch.utils.data.DataLoader(dat[s],batch_size=1,shuffle=False)
+	    data[n][s]={'x': [],'y': []}
             for image,target in loader:
-                n=target.cpu().numpy()[0]
-                nn=(n//10)+5
-                data[nn][s]['x'].append(image)
-                data[nn][s]['y'].append(n%10)
+                data[n][s]['x'].append(image)
+                data[n][s]['y'].append(target.numpy()[0])
 
         # "Unify" and save
         for t in data.keys():
@@ -45,16 +41,13 @@ def get(data_path,seed=0,pc_valid=0.10):
 
     # Load binary files
     data={}
-    ids=list(shuffle(np.arange(10),random_state=seed))
-    print('Task order =',ids)
-    for i in range(10):
-        data[i] = dict.fromkeys(['name','ncla','train','test'])
-        for s in ['train','test']:
-            data[i][s]={'x':[],'y':[]}
-            data[i][s]['x']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'x.bin'))
-            data[i][s]['y']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'y.bin'))
-        data[i]['ncla']=len(np.unique(data[i]['train']['y'].numpy()))
-        data[i]['name']='Food101-'+str(ids[i])
+    i=0
+    for s in ['train','test']:
+        data[i][s]={'x':[],'y':[]}
+        data[i][s]['x']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'x.bin'))
+        data[i][s]['y']=torch.load(os.path.join(os.path.expanduser(path),'data'+str(ids[i])+s+'y.bin'))
+    data[i]['ncla']=len(np.unique(data[i]['train']['y'].numpy()))
+    data[i]['name']='Food101-'+str(ids[i])
 
     # Validation
     for t in data.keys():
