@@ -85,7 +85,7 @@ if args.approach=='ucb':
     from approaches import ucb as approach
 
 # Args -- Network
-if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'fer2013':
+if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'fer2013' or args.experiment == 'usps':
     from networks import mlp_ucb as network
 else:
     from networks import resnet_ucb as network
