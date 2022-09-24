@@ -11,7 +11,7 @@ parser=argparse.ArgumentParser(description='xxx')
 parser.add_argument('--seed',               default=0,              type=int,   help='(default=%(default)d)')
 parser.add_argument('--device',             default='cuda:0',       type=str,   help='gpu id')
 parser.add_argument('--experiment',         default='mnist5',       type=str,   required=True,
-                                            choices=['mnist2','mnist5','pmnist','cifar','mixture','svhn2','svhn5','imagenet','food101','fer2013','usps'])
+                                            choices=['mnist2','mnist5','pmnist','cifar','mixture','svhn2','svhn5','usps','mixturenew'])
 parser.add_argument('--approach',           default='acl',            type=str,   help='acl')
 parser.add_argument('--data_path',          default='../data/',            type=str,   help='gpu id')
 
@@ -66,26 +66,22 @@ elif args.experiment=='pmnist':
 elif args.experiment=='cifar':
     from dataloaders import cifar as dataloader
 elif args.experiment=='mixture':
-    from dataloaders import svhn2 as dataloader
+    from dataloaders import mixture as dataloader
 elif args.experiment=='svhn2':
     from dataloaders import svhn2 as dataloader
 elif args.experiment=='svhn5':
     from dataloaders import svhn5 as dataloader
-elif args.experiment=='imagenet':
-    from dataloaders import imagenet as dataloader
-elif args.experiment=='food101':
-    from dataloaders import food101 as dataloader
-elif args.experiment=='fer2013':
-    from dataloaders import fer2013 as dataloader
 elif args.experiment=='usps':
     from dataloaders import usps as dataloader
+elif args.experiment=='mixturenew':
+    from dataloaders import mixturenew as dataloader
 
 # Args -- Approach
 if args.approach=='ucb':
     from approaches import ucb as approach
 
 # Args -- Network
-if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'fer2013' or args.experiment == 'usps':
+if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'usps':
     from networks import mlp_ucb as network
 else:
     from networks import resnet_ucb as network
