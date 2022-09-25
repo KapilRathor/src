@@ -6,7 +6,7 @@ Used the official implementation of the paper [Uncertainty-guided Continual Lear
 ```bash
 !git clone https://github.com/KapilRathor/src
 ```
-- To run experiments on new datasets use `src/runnew.py --experiment <name>` where `name` can be [`svhn2`,`svhn5`,`usps`].
+- To run experiments on new datasets use `src/runnew.py --experiment <name>` where `name` can be [`svhn2`,`svhn5`,`usps2`,`usps5`].
 - To run all the experiments use `src/runnew.py --experiment <name>` where `name` can be [`mnist2`, `mnist5`, `pmnist`, `cifar`, `mixture`].
 
 ## Paper and original code details are provided below 
