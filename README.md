@@ -5,7 +5,7 @@ Used the official implementation of the paper [Uncertainty-guided Continual Lear
 ## For running the model on SVHN and USPS dataset in google colab 
 ```bash
 !git clone https://github.com/KapilRathor/src
-
+---
 - To run experiments on new datasets use `src/runnew.py --experiment <name>` where `name` can be ['svhn2','svhn5','usps'].
 - To run all the experiments use `src/runnew.py --experiment <name>` where `name` can be [`mnist2`, `mnist5`, `pmnist`, `cifar`, `mixture`].
 
@@ -23,8 +23,7 @@ Continual learning aims to learn new tasks without forgetting previously learned
 ### Citation
 If using this code, parts of it, or developments from it, please cite our paper:
 
-```
-@inproceedings{
+```@inproceedings{
 Ebrahimi2020Uncertainty-guided,
 title={Uncertainty-guided Continual Learning with Bayesian Neural Networks},
 author={Sayna Ebrahimi and Mohamed Elhoseiny and Trevor Darrell and Marcus Rohrbach},
