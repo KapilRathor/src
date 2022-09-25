@@ -11,7 +11,7 @@ parser=argparse.ArgumentParser(description='xxx')
 parser.add_argument('--seed',               default=0,              type=int,   help='(default=%(default)d)')
 parser.add_argument('--device',             default='cuda:0',       type=str,   help='gpu id')
 parser.add_argument('--experiment',         default='mnist5',       type=str,   required=True,
-                                            choices=['mnist2','mnist5','pmnist','cifar','mixture','svhn2','svhn5','usps','mixturenew'])
+                                            choices=['mnist2','mnist5','pmnist','cifar','mixture','svhn2','svhn5','usps2','usps5','mixturenew'])
 parser.add_argument('--approach',           default='acl',            type=str,   help='acl')
 parser.add_argument('--data_path',          default='../data/',            type=str,   help='gpu id')
 
@@ -71,8 +71,10 @@ elif args.experiment=='svhn2':
     from dataloaders import svhn2 as dataloader
 elif args.experiment=='svhn5':
     from dataloaders import svhn5 as dataloader
-elif args.experiment=='usps':
-    from dataloaders import usps as dataloader
+elif args.experiment=='usps2':
+    from dataloaders import usps2 as dataloader
+elif args.experiment=='usps5':
+    from dataloaders import usps5 as dataloader
 elif args.experiment=='mixturenew':
     from dataloaders import mixturenew as dataloader
 
@@ -81,7 +83,7 @@ if args.approach=='ucb':
     from approaches import ucb as approach
 
 # Args -- Network
-if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'usps':
+if args.experiment=='mnist2' or args.experiment=='pmnist' or args.experiment == 'mnist5' or args.experiment == 'svhn2' or args.experiment == 'usps2' or args.experiment == 'usps5':
     from networks import mlp_ucb as network
 else:
     from networks import resnet_ucb as network
