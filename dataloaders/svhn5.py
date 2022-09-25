@@ -14,8 +14,10 @@ def get(data_path,seed,fixed_order=False,pc_valid=0):
     mean=(0.1307,)
     std=(0.3081,)
     dat={}
-    dat['train']=datasets.MNIST(data_path,train=True,download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
-    dat['test']=datasets.MNIST(data_path,train=False,download=True,transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+    dat['train']=datasets.SVHN(data_path,split='train',download=True,
+                                transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
+    dat['test']=datasets.SVHN(data_path,split='test',download=True,
+                               transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean,std)]))
     data[0]={}
     data[0]['name']='svhn-0-1'
     data[0]['ncla']=2
